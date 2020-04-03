@@ -1,0 +1,10 @@
+{
+"send_emails":true,
+"smtp_server":"smtp.service.dot",
+"server_port":666,
+"login":"username@service.dot",
+"password":"password",
+"receiver_email":"receiver@service.dot",
+"dump_to_file_time":300,
+"file_to_send_time":7200
+}
